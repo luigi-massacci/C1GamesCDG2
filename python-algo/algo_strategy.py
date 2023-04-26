@@ -57,7 +57,14 @@ class AlgoStrategy(gamelib.AlgoCore):
         game_state.suppress_warnings(True)  #Comment or remove this line to enable warnings.
 
         self.starter_strategy(game_state)
-
+        # for x in range(3,12): 
+            # (i,16-i)
+            # (i+13,i+2)
+        # for x in range(6):
+            # (11+x,5)
+        # for x in range(3):
+            # (25+x,13)
+            # (x,13)
         game_state.submit_turn()
 
 

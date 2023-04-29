@@ -71,8 +71,6 @@ class AlgoStrategy(gamelib.AlgoCore):
         # Comment or remove this line to enable warnings.
         game_state.suppress_warnings(True)
 
-        self.side = not self.side
-
         if self.side:
             self.removed_turrets = self.removed_turrets_l
             self.attack_coords = self.attack_coords_l
@@ -88,6 +86,7 @@ class AlgoStrategy(gamelib.AlgoCore):
             game_state.attempt_spawn(TURRET, self.removed_turrets)
             self.needs_closing = False
             self.is_open = False
+            self.side = not self.side
 
         if self.is_open:
             self.attack_state(game_state)
@@ -102,8 +101,7 @@ class AlgoStrategy(gamelib.AlgoCore):
         self.repair(game_state)
         self.upgrade(game_state)
 
-        self.shields = [[5, 8], [6, 7], [7, 6], [8, 5]]
-        game_state.attempt_spawn(SUPPORT, self.shields)
+        self.put_shields(game_state)
 
         game_state.submit_turn()
 
@@ -114,11 +112,10 @@ class AlgoStrategy(gamelib.AlgoCore):
 
 
     def initial_setup_funnel(self, game_state):
-        self.turret_init_points = [[0, 13], [11, 7], [16, 7], [2, 13], [3, 13], [6, 13], [11, 13], [16, 13], [21, 13], [24, 13], [25, 13], [26, 13], [27, 13],
+        self.turret_init_points = [[0, 13], [11, 7], [16, 7], [2, 13], [3, 13], [6, 13], [11, 13], [16, 13], [21, 13], [24, 13], [25, 13], [27, 13],
                                    [3, 12], [4, 12], [23, 12], [24, 12], [5, 11], [8, 11], [12, 11], [15, 11], [19, 11], [22, 11], [6, 10], [21, 10], [7, 9], [20, 9], [8, 8], [16, 9], [11, 9], [19, 8], [9, 7], [18, 7], [10, 6], [12, 6], [13, 6], [14, 6], [15, 6], [17, 6]]
         game_state.attempt_spawn(TURRET, self.turret_init_points)
-        game_state.attempt_spawn(TURRET, [1, 13])
-        # game_state.attempt_upgrade([[3, 13]])0
+        game_state.attempt_spawn(TURRET, [[1, 13], [26, 13]])
 
     def attack_state(self, game_state):
         game_state.attempt_spawn(SCOUT, self.attack_coords,
@@ -140,6 +137,14 @@ class AlgoStrategy(gamelib.AlgoCore):
         self.side_wings = [[6, 11], [21, 11], [7, 10], [20, 10], [8, 9], [
             19, 9], [9, 8], [18, 8], [10, 7], [17, 7], [11, 6], [16, 6]]
         game_state.attempt_spawn(TURRET, self.side_wings)
+
+    def put_shields(self, game_state):
+        self.shields = [[12, 3], [13, 3], [14, 3], [15, 3]]
+        game_state.attempt_spawn(SUPPORT, self.shields)
+        self.extra_shields = [[13, 2], [13, 1]]
+        if game_state.get_resource(SP) >= 20:
+            game_state.attempt_spawn(SUPPORT, self.extra_shields)
+
         # """
         # NOTE: All the methods after this point are part of the sample starter-algo
         # strategy and can safely be replaced for your custom algo.
@@ -289,7 +294,6 @@ class AlgoStrategy(gamelib.AlgoCore):
         #         if not game_state.contains_stationary_unit(location):
         #             filtered.append(location)
         #     return filtered
-
 
         # def on_action_frame(self, turn_string):
         #     """

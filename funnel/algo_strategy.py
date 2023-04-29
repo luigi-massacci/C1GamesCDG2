@@ -289,6 +289,7 @@ class AlgoStrategy(gamelib.AlgoCore):
         #             filtered.append(location)
         #     return filtered
 
+
         # def on_action_frame(self, turn_string):
         #     """
         #     This is the action frame of the game. This function could be called

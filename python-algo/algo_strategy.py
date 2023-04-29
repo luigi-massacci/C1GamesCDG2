@@ -57,14 +57,12 @@ class AlgoStrategy(gamelib.AlgoCore):
         game_state.suppress_warnings(True)  #Comment or remove this line to enable warnings.
 
         self.starter_strategy(game_state)
-        # for x in range(3,12): 
-            # (i,16-i)
-            # (i+13,i+2)
-        # for x in range(6):
-            # (11+x,5)
-        # for x in range(3):
-            # (25+x,13)
-            # (x,13)
+        if game_state.turn_number() == 1:
+            turret_init_points = [[0, 13], [1, 13], [2, 13], [3, 13], [10, 13], [17, 13], [24, 13], [25, 13], [26, 13], [27, 13], [3, 12], [4, 12], [23, 12], [24, 12], [5, 11], [12, 11], [15, 11], [22, 11], [6, 10], [21, 10], [7, 9], [12, 9], [15, 9], [20, 9], [8, 8], [19, 8], [9, 7], [18, 7], [10, 6], [17, 6], [11, 5], [16, 5], [12, 4], [15, 4], [13, 3], [14, 3]]
+            game_state.attempt_spawn(TURRET, turret_init_points)
+            game_state.attempt_upgrade([[3,13]])
+
+      
         game_state.submit_turn()
 
 

@@ -86,6 +86,11 @@ class AlgoStrategy(gamelib.AlgoCore):
 
         game_state.submit_turn()
 
+
+# Turrets to place: [[1, 13], [4, 13], [23, 13], [1, 12], [2, 12], [5, 12], [9, 12], [18, 12], [22, 12], [25, 12], [26, 12], [2, 11], [3, 11], [4, 11], [23, 11], [24, 11], [25, 11]]
+
+# Turrets to place and upgrade: [[2, 13], [25, 13], [10, 9], [17, 9], [13, 8], [14, 8], [9, 7], [18, 7]]
+
     def initial_setup_funnel(self, game_state):
         self.turret_init_points = [[0, 13], [2, 13], [3, 13], [6, 13], [11, 13],
                                    [16, 13], [21, 13], [24, 13], [
@@ -94,8 +99,8 @@ class AlgoStrategy(gamelib.AlgoCore):
                                        23, 12], [24, 12],
                                    [5, 11], [8, 11], [12, 11], [
                                        15, 11], [19, 11],
-                                   [22, 11], [6, 10], [21, 10], [7, 9], [11, 9],
-                                   [16, 9], [20, 9], [8, 8], [13, 8], [14, 8],
+                                   [22, 11], [6, 10], [21, 10], [7, 9],
+                                   [20, 9], [8, 8], [13, 8], [14, 8],
                                    [19, 8], [9, 7], [18, 7], [10, 6], [12, 6],
                                    [13, 6], [14, 6], [15, 6], [17, 6], [11, 5], [16, 5]]
         game_state.attempt_spawn(TURRET, self.turret_init_points)
@@ -265,7 +270,6 @@ class AlgoStrategy(gamelib.AlgoCore):
         #         if not game_state.contains_stationary_unit(location):
         #             filtered.append(location)
         #     return filtered
-
 
         # def on_action_frame(self, turn_string):
         #     """

@@ -81,7 +81,7 @@ class AlgoStrategy(gamelib.AlgoCore):
         if game_state.turn_number == 0:
             self.initial_setup_funnel(game_state)
 
-        #opening and closing - start
+        # opening and closing - start
         if self.needs_closing:
             game_state.attempt_spawn(TURRET, self.removed_turrets)
             self.needs_closing = False
@@ -96,7 +96,7 @@ class AlgoStrategy(gamelib.AlgoCore):
             self.prepare_attack(game_state)
             self.is_open = True
 
-        #opening and closing - end
+        # opening and closing - end
 
         self.repair(game_state)
         self.upgrade(game_state)
@@ -125,12 +125,12 @@ class AlgoStrategy(gamelib.AlgoCore):
         game_state.attempt_spawn(TURRET, self.extra_turrets)
 
     def upgrade(self, game_state):
+        self.second_row = [[6, 11], [21, 11], [7, 10], [20, 10], [8, 9], [
+            19, 9], [9, 8], [18, 8], [10, 7], [17, 7], [11, 6], [16, 6], [12, 5], [13, 5], [14, 5], [15, 5]]
+        game_state.attempt_spawn(TURRET, self.second_row)
         self.cst_upgrade_points = [[3, 13], [24, 13], [
             12, 11], [15, 11], [4, 12], [23, 12], [11, 9], [16, 9], [6, 10], [21, 10], [2, 13], [25, 13], [9, 7], [18, 7], [13, 6], [14, 6]]
         game_state.attempt_upgrade(self.cst_upgrade_points)
-        self.side_wings = [[6, 11], [21, 11], [7, 10], [20, 10], [8, 9], [
-            19, 9], [9, 8], [18, 8], [10, 7], [17, 7], [11, 6], [16, 6]]
-        game_state.attempt_spawn(TURRET, self.side_wings)
 
     def put_shields(self, game_state):
         self.shields = [[12, 3], [13, 3], [14, 3], [15, 3]]
@@ -288,7 +288,6 @@ class AlgoStrategy(gamelib.AlgoCore):
         #         if not game_state.contains_stationary_unit(location):
         #             filtered.append(location)
         #     return filtered
-
 
         # def on_action_frame(self, turn_string):
         #     """

@@ -46,8 +46,8 @@ class AlgoStrategy(gamelib.AlgoCore):
         self.scored_on_locations = []
         self.is_open = False
         self.needs_closing = False
-        self.removed_turrets_l = [[2, 12]]
-        self.removed_turrets_r = [[25, 12]]
+        self.removed_turrets_l = [[2, 12],[2,13]]
+        self.removed_turrets_r = [[25, 12],[25,13]]
         self.removed_turrets = self.removed_turrets_l
         self.attack_left_side = True #attack on the left
         self.attack_coords_l = [[14, 0], [24, 10]]
@@ -122,16 +122,16 @@ class AlgoStrategy(gamelib.AlgoCore):
         game_state.attempt_spawn(TURRET, [13,6])
 
     def repair_1(self, game_state):
-        self.extra_turrets = [[14, 13], [11, 12], [15, 12], [12, 5], [14, 5],[4,11],[22,11]]
+        self.extra_turrets = [[4,11],[22,11],[1, 13], [3, 13], [4, 13], [23, 13], [24, 13], [26, 13], [5, 12], [23, 11],[14, 13], [11, 12], [15, 12], [12, 5], [14, 5]]
         game_state.attempt_spawn(TURRET, self.turret_init_points)
         game_state.attempt_spawn(TURRET, self.extra_turrets)
 
     def upgrade_1(self, game_state):
-        self.cst_upgrade_points = [[4, 12], [12, 12], [14, 12], [22, 12], [14, 11]]
+        self.cst_upgrade_points = [[4, 12], [12, 12], [22, 12], [14, 11]]
         game_state.attempt_upgrade(self.cst_upgrade_points)
 
     def put_shields_1(self, game_state):
-        self.shields = [[12, 3], [13, 3], [14, 3], [15, 3]]
+        self.shields = [[12, 3], [13, 3]]
         for shield in self.shields:
             game_state.attempt_spawn(SUPPORT, [shield])
             game_state.attempt_upgrade([shield])
@@ -141,15 +141,15 @@ class AlgoStrategy(gamelib.AlgoCore):
         #     game_state.attempt_upgrade(self.extra_shields)
     
     def repair_2(self, game_state):
-        self.second_row = []
+        self.second_row = [[6, 11], [7, 10], [21, 10], [8, 9], [20, 9], [9, 8], [19, 8], [10, 7], [18, 7], [11, 6], [17, 6]]
         game_state.attempt_spawn(TURRET, self.second_row)
         
     def upgrade_2(self, game_state):
-        self.cst_upgrade_points = [[4, 11], [22, 11], [12, 10], [14, 10]]
+        self.cst_upgrade_points = [[14, 12],[4, 11], [22, 11], [12, 10], [14, 10], [3,12],[24,12]]
         game_state.attempt_upgrade(self.cst_upgrade_points)
 
     def put_shields_2(self, game_state):
-        self.extra_shields = [[13, 2], [14, 2]]
+        self.extra_shields = [[14, 3], [15, 3],[13, 2], [14, 2]]
         for shield in self.extra_shields:
             game_state.attempt_spawn(SUPPORT, [shield])
             game_state.attempt_upgrade([shield])

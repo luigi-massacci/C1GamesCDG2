@@ -55,6 +55,8 @@ class AlgoStrategy(gamelib.AlgoCore):
         self.attack_coords_l = [[14, 0], [24, 10]]
         self.attack_coords_r = [[13, 0], [3, 10]]
         self.attack_coords = self.attack_coords_l
+        
+
 
     def on_turn(self, turn_state):
         """
@@ -92,7 +94,8 @@ class AlgoStrategy(gamelib.AlgoCore):
             self.attack_state(game_state)
             self.needs_closing = True
 
-        if game_state.get_resource(MP) >= 16:
+        self.mp_threshold = (9 + (game_state.turn_number//10))
+        if game_state.get_resource(MP) >= 2*self.mp_threshold:
             self.prepare_attack(game_state)
             self.is_open = True
 
@@ -113,7 +116,7 @@ class AlgoStrategy(gamelib.AlgoCore):
 
     def attack_state(self, game_state):
         game_state.attempt_spawn(SCOUT, self.attack_coords,
-                                 11 + (game_state.turn_number//7))
+                                 self.mp_threshold + 3)
 
     def prepare_attack(self, game_state):
         game_state.attempt_remove(self.removed_turrets)

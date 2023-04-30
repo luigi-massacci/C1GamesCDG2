@@ -70,7 +70,7 @@ class AlgoStrategy(gamelib.AlgoCore):
             game_state.turn_number))
         # Comment or remove this line to enable warnings.
         game_state.suppress_warnings(True)
-
+        self.side = self.choose_side(game_state) 
         if self.side: #attack on the left
             self.removed_turrets = self.removed_turrets_l
             self.attack_coords = self.attack_coords_l
@@ -86,7 +86,7 @@ class AlgoStrategy(gamelib.AlgoCore):
             game_state.attempt_spawn(TURRET, self.removed_turrets)
             self.needs_closing = False
             self.is_open = False
-            self.side = not self.side
+            # self.side = not self.side
 
         if self.is_open:
             self.attack_state(game_state)
@@ -141,6 +141,19 @@ class AlgoStrategy(gamelib.AlgoCore):
         if game_state.get_resource(SP) >= 15:
             game_state.attempt_spawn(SUPPORT, self.extra_shields)
             game_state.attempt_upgrade(self.extra_shields)
+
+    def choose_side(self, game_state):
+        enemy_left = 0
+        enemy_right = 0
+        enemy_left_coords = [[4, 18], [3, 17], [4, 17], [5, 17], [2, 16], [3, 16], [4, 16], [5, 16], [1, 15], [2, 15], [3, 15], [4, 15], [5, 15], [0, 14], [1, 14], [2, 14], [3, 14], [4, 14], [5, 14]]
+        enemy_right_coords = [[23, 18], [22, 17], [23, 17], [24, 17], [22, 16], [23, 16], [24, 16], [25, 16], [22, 15], [23, 15], [24, 15], [25, 15], [26, 15], [22, 14], [23, 14], [24, 14], [25, 14], [26, 14], [27, 14]]
+        for coord in enemy_left_coords:
+            if game_state.contains_stationary_unit(coord):
+                enemy_left +=1
+        for coord in enemy_right_coords:
+            if game_state.contains_stationary_unit(coord):
+                enemy_right +=1
+        return enemy_left <= enemy_right
 
 
 
